@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import copy
 
-np.random.seed(20190918)
+np.random.seed(20191010)
 
 def vert_dist(v1, v2):
     d = np.sqrt((v1.x-v2.x)**2 + (v1.y-v2.y)**2)
@@ -28,8 +28,16 @@ class vert():
         self.dist = 0
         self.visit = 0
         self.order = -1
+
+def sort_vert_list(vl):
+    vn = []
+    for idx in range(len(vl)):
+        for v in vl:
+            if v.order == idx:
+                vn.append(v)
+    return vn
                  
-n = 15
+n = 9
 best_dist = 1000
 
 x = np.random.randint(0, 50, n)
@@ -91,17 +99,7 @@ for idx in range(n):
                 bidx += 1
                 if bidx > len(b):
                     break
-                
-            
-#        for bi in b:
-#            if bi.get_color() == 'r':
-#                bi.remove()
-                
-#        for bidx in range(len(b)):
-#            bi = b.pop(bidx)
-#            if bi.get_color() == 'r':
-#                bi.remove()
-        
+                        
         min_dist_vert.visit = 1
         min_dist_vert.order = u.order + 1
         min_dist_vert.dist = min_dist
@@ -112,17 +110,23 @@ for idx in range(n):
         ax.scatter(u.x,u.y,marker='s', c='g')
         remain = [i for i in vert_list if i.visit==0]
         
-    plt.pause(0.5)
+    plt.pause(0.8)
     total_dist = 0
     for v in vert_list:
         total_dist += v.dist
     
     if total_dist <= best_dist:
+        ax2.clear()
+        ax2.scatter(x, y, marker='s', c='g')
+        ax2.set_xlim((0,50))
+        ax2.set_ylim((0,100))
+        
         best_dist = total_dist
         best_collection = [copy.deepcopy(v) for v in vert_list]
+        bc = sort_vert_list(best_collection)
         b = ax.lines
         for idx in range(len(b)):
-            ax2.plot([best_collection[idx].x,best_collection[idx+1].x], [best_collection[idx].y,best_collection[idx+1].y], 'g-')
+            ax2.plot([bc[idx].x,bc[idx+1].x], [bc[idx].y,bc[idx+1].y], 'g-')
         ax2.set_title('Best Distance: {}'.format(best_dist.round(2)))
         
     for v in vert_list:
