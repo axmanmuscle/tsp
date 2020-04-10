@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import copy
 
-np.random.seed(20191010)
+np.random.seed(20190921)
 
 def vert_dist(v1, v2):
     d = np.sqrt((v1.x-v2.x)**2 + (v1.y-v2.y)**2)
@@ -37,22 +37,22 @@ def sort_vert_list(vl):
                 vn.append(v)
     return vn
                  
-n = 9
+n = 11
 best_dist = 1000
 
-x = np.random.randint(0, 50, n)
-y = np.random.randint(0, 100, n)
+x = np.random.randint(0, 200, n)
+y = np.random.randint(0, 200, n)
 
 fig = plt.figure()
 ax = fig.add_subplot(121)
 ax.scatter(x, y, marker='s', c='b')
-ax.set_xlim((0,50))
-ax.set_ylim((0,100))
+ax.set_xlim((0,200))
+ax.set_ylim((0,200))
 
 ax2 = fig.add_subplot(122)
 ax2.scatter(x, y, marker='s', c='g')
-ax2.set_xlim((0,50))
-ax2.set_ylim((0,100))
+ax2.set_xlim((0,200))
+ax2.set_ylim((0,200))
 
 vert_list = []
 
@@ -64,8 +64,8 @@ for idx in range(n):
     ## main loop
     ax.clear()
     ax.scatter(x, y, marker='s', c='b')
-    ax.set_xlim((0,50))
-    ax.set_ylim((0,100))
+    ax.set_xlim((0,200))
+    ax.set_ylim((0,200))
 
     start_vert = vert_list[idx]
     
@@ -118,8 +118,8 @@ for idx in range(n):
     if total_dist <= best_dist:
         ax2.clear()
         ax2.scatter(x, y, marker='s', c='g')
-        ax2.set_xlim((0,50))
-        ax2.set_ylim((0,100))
+        ax2.set_xlim((0,200))
+        ax2.set_ylim((0,200))
         
         best_dist = total_dist
         best_collection = [copy.deepcopy(v) for v in vert_list]
