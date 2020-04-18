@@ -30,7 +30,7 @@ def neighbor_local(x, p):
     return s
 
 def E(y):
-    return -y
+    return -(y**2)
 
 def P(s, snew, t, p):
     ys = p(s)
@@ -74,11 +74,11 @@ if __name__ == "__main__":
     
     #naught.remove()
     while t > 1:
-        t = t - dt
+        t -= dt
         
         current = xn
-        #candidate = neighbor_unif(p)
-        candidate = neighbor_local(current, p)
+        candidate = neighbor_unif(p)
+        #candidate = neighbor_local(current, p)
         switch = P(current, candidate, t, p)
         
         thresh = np.random.uniform()
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         pt, = plt.plot([xn, xn], [0, yn], 'r')
         plt.title('Temperature: {:.2f} Value: {:.2f}'.format(t, yn))
         plt.draw()
-        plt.pause(.1)
+        plt.pause(.05)
         pt.remove()
         
     pt, = plt.plot([xn, xn], [0, yn], 'r')
